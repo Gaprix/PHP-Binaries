@@ -155,7 +155,7 @@ FSANITIZE_OPTIONS=""
 FLAGS_LTO=""
 HAVE_OPCACHE_JIT="no"
 
-COMPILE_GD="no"
+COMPILE_GD="yes"
 
 PM_VERSION_MAJOR=""
 
@@ -1119,7 +1119,7 @@ function get_pecl_extension {
 cd "$BUILD_DIR/php"
 write_out "PHP" "Downloading additional extensions..."
 
-get_github_extension "pmmpthread" "$EXT_PMMPTHREAD_VERSION" "pmmp" "ext-pmmpthread"
+get_extension_tar_gz "pthreads" "$EXT_PMMPTHREAD_VERSION" "https://github.com/pmmp/ext-pmmpthread/archive/$EXT_PMMPTHREAD_VERSION.tar.gz" "ext-pmmpthread-$EXT_PMMPTHREAD_VERSION"
 
 
 get_github_extension "yaml" "$EXT_YAML_VERSION" "php" "pecl-file_formats-yaml"
