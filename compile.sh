@@ -1276,7 +1276,7 @@ $HAS_DEBUG \
 --enable-mbstring \
 --disable-mbregex \
 --enable-calendar \
---enable-pmmpthread \
+--enable-pthreads \
 --enable-fileinfo \
 --with-libxml \
 --enable-xml \
