@@ -111,13 +111,18 @@ jobs:
     name: Linux
     runs-on: ubuntu-22.04
 
+    container:
+      image: ubuntu:20.04
+
     steps:
       - uses: actions/checkout@v5
 
       - name: Install tools and dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install make autoconf automake libtool libtool-bin m4 wget libc-bin gzip bzip2 bison g++ git re2c
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y \
+            make autoconf automake libtool libtool-bin \
+            m4 wget libc-bin gzip bzip2 bison g++ git re2c
 
       - name: Prepare compile.sh download cache
         id: download-cache
@@ -133,6 +138,10 @@ jobs:
           set -ex
           trap "exit 1" ERR
           ./compile.sh -t linux64 -j 4 -g -P ${{ inputs.pm-version-major }} -c ./download_cache -D -z ${{ inputs.php-version-base }}
+
+      - name: Check glibc version
+        run: |
+          strings bin/php7/bin/php | grep GLIBC_ | sort -V | tail
 
       - name: Create tarball
         run: |
